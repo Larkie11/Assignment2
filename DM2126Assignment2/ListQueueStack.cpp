@@ -83,7 +83,31 @@ int LinkedList::pop_front()
 
 int LinkedList::pop_back()
 {
-	return 0;
+	Node *curr = head;
+	Node *prev = head;
+	int temp = 0;
+	if (head == NULL)
+	{
+		return 0;
+	}
+
+	else if (head->next == NULL)
+	{
+		head = NULL;
+		return curr->data;
+	}
+	else
+	{
+		while (curr->next != NULL)
+		{
+			prev = curr;
+			curr = curr->next;
+		}
+		prev->next = NULL;
+		temp = curr->data;
+		delete curr;
+		return temp;
+	}
 }
 void LinkedList::insert_at(int pos, int data)
 {
