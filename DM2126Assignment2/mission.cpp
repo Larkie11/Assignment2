@@ -27,7 +27,33 @@ using std::queue;
 // Balanced parenthesis
 bool Brackets(const string& input)
 {
-	return false;
+	string open_brackets = "({[<";
+	string close_brackets = ")}]>";
+	stack<char> s;
+	for (auto c : input)
+	{
+		auto pos = string::npos;
+		if (open_brackets.find(c) != string::npos)
+		{
+			s.push(c);
+		}
+		else if ((pos = close_brackets.find(c)) != string::npos)
+		{
+			if (s.empty())
+			{
+				return false;
+			}
+			if (s.top() == open_brackets[pos])
+			{
+				s.pop();
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return s.empty();
 }
 // Query machine, hits
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
