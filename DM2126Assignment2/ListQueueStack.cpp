@@ -111,7 +111,32 @@ int LinkedList::pop_back()
 }
 void LinkedList::insert_at(int pos, int data)
 {
+	Node* newNode = new Node(data);
+	newNode->next = NULL;
+	Node* curr = head;
+	int num = size();
+	//If pos is the first
+	if (pos <= 0)
+	{
+		push_front(data);
+		return;
+	}
+	if (num > pos)
+	{
+		int temp = 1;
 
+		while (temp < pos)
+		{
+			temp++;
+			curr = curr->next;
+		}
+		newNode->next = curr->next;
+		curr->next = newNode;
+	}
+	else
+	{
+		push_back(data);
+	}
 }
 
 int LinkedList::pop_at(int pos)
