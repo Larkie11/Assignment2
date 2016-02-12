@@ -211,7 +211,28 @@ void Queue::enqueue(int data)
 
 int Queue::dequeue()
 {
-	return 0;
+	int value = 0;
+
+	Node* temp = front;
+	if (front == NULL && back == NULL)
+	{
+		return 0;
+	}
+
+	else if (front == back)
+	{
+		value = front->data;
+		front = NULL;
+		back = NULL;
+		delete temp;
+	}
+	else
+	{
+		value = front->data;
+		front = front->next;
+		delete temp;
+	}
+	return value;
 }
 
 size_t Queue::size()
