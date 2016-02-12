@@ -252,7 +252,7 @@ size_t Queue::size()
 //*******************************************************************//
 Stack::Stack()
 {
-
+	top = 0;
 }
 
 Stack::~Stack()
@@ -262,14 +262,42 @@ Stack::~Stack()
 
 void Stack::push(int data)
 {
+	Node* newTop = new Node(data);
+	if (top != NULL)
+	{
+		newTop->next = top;
+		top = newTop;
+	}
+	else
+	{
+		top = newTop;
+	}
 }
 
 int Stack::pop()
 {
-	return 0;
+	if (top != NULL)
+	{
+		Node* old = top;
+		top = top->next;
+		int temp = old->data;
+		delete old;
+		return temp;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 size_t Stack::size()
 {
-	return 0;
+	Node* curr = top;
+	int size = 0;
+	while (curr != NULL)
+	{
+		curr = curr->next;
+		++size;
+	}
+	return size;
 }
