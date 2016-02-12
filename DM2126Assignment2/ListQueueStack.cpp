@@ -141,7 +141,31 @@ void LinkedList::insert_at(int pos, int data)
 
 int LinkedList::pop_at(int pos)
 {
-	return 0;
+	Node* curr = head;
+	Node* prev = nullptr;
+	if (pos <= 0)
+	{
+		pop_front();
+	}
+	else if ((int)size() <= pos)
+	{
+		return 0;
+	}
+	else
+	{
+
+		int tempPos = 0;
+		while (tempPos != pos)
+		{
+			prev = curr;
+			curr = curr->next;
+			++tempPos;
+		}
+		int temp = curr->data;
+		prev->next = curr->next;
+		delete curr;
+		return temp;
+	}
 }
 size_t LinkedList::size()
 {
