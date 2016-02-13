@@ -18,9 +18,9 @@ using std::queue;
 /*! 
  *  \brief     DM2126 Assignment 2
  *  \details   Submit the whole solution, but only this file will be used to grade
- *  \author    <John Doe>
- *  \date      2015 
- *  \note      <Admin ID>
+ *  \author    Mok Wei Min
+ *  \date      2016 
+ *  \note      155208U
  */
 
 
@@ -58,5 +58,36 @@ bool Brackets(const string& input)
 // Query machine, hits
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
 {
+	queue<int> queryqueue;
+	int count = 0;
 
+	for (size_t dcount = 0; dcount < data.size(); ++dcount)
+	{
+		for (size_t qcount = 0; qcount < queries.size(); ++qcount)
+		{
+			if (queries[qcount] == data[dcount])
+			{
+				queryqueue.push(data[dcount]);
+				count++;
+				break;
+			}
+		}
+	}
+	for (size_t i = 0; i < queries.size(); ++i)
+	{
+		results.push_back(0);
+	}
+	for (; count > 0; --count)
+	{
+		int temp = queryqueue.front();
+		//Loop through and check if the number is the same
+		for (size_t compare = 0; compare < queries.size(); ++compare)
+		{
+			if (queries[compare] == temp)
+			{
+				results[compare]++;
+			}
+		}
+		queryqueue.pop();
+	}
 }

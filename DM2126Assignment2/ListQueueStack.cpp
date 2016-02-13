@@ -11,9 +11,9 @@ using std::cout;
 /*! 
  *  \brief     DM2126 Assignment 2
  *  \details   Submit the whole solution, but only this file will be used to grade
- *  \author    <John Doe>
- *  \date      2015 
- *  \note      <Admin ID>
+ *  \author    Mok Wei Min
+ *  \date      2016
+ *  \note      155208U
  */
 
 //*******************************************************************//
@@ -59,9 +59,7 @@ void LinkedList::push_back(int data)
 		{
 			prev = prev->next;
 		}
-		//link the last to the newnode
 		prev->next = newNode;
-		//link new node to null since its at the end
 		newNode->next = NULL;
 	}
 }
@@ -69,6 +67,7 @@ void LinkedList::push_back(int data)
 int LinkedList::pop_front()
 {
 	Node* curr = head;
+	int temp = 0;
 	
 	if (head == NULL)
 	{
@@ -78,7 +77,9 @@ int LinkedList::pop_front()
 	{
 		head = head->next;
 	}
-	return curr->data;
+	temp = curr->data;
+	delete curr;
+	return temp;
 }
 
 int LinkedList::pop_back()
@@ -90,11 +91,12 @@ int LinkedList::pop_back()
 	{
 		return 0;
 	}
-
 	else if (head->next == NULL)
 	{
 		head = NULL;
-		return curr->data;
+		temp = curr->data;
+		delete curr;
+		return temp;
 	}
 	else
 	{
@@ -109,6 +111,7 @@ int LinkedList::pop_back()
 		return temp;
 	}
 }
+
 void LinkedList::insert_at(int pos, int data)
 {
 	Node* newNode = new Node(data);
@@ -143,17 +146,23 @@ int LinkedList::pop_at(int pos)
 {
 	Node* curr = head;
 	Node* prev = nullptr;
-	if (pos <= 0)
-	{
-		pop_front();
-	}
-	else if ((int)size() <= pos)
+	int temp = 0;
+
+	if ((int)size() <= pos)
 	{
 		return 0;
 	}
+	else if (pos <= 0)
+	{
+		pop_front();
+	}
+	else if (pos >= (int)size())
+	{
+		pos = (int)size();
+		pop_back();
+	}
 	else
 	{
-
 		int tempPos = 0;
 		while (tempPos != pos)
 		{
@@ -161,7 +170,7 @@ int LinkedList::pop_at(int pos)
 			curr = curr->next;
 			++tempPos;
 		}
-		int temp = curr->data;
+		temp = curr->data;
 		prev->next = curr->next;
 		delete curr;
 		return temp;
@@ -218,7 +227,6 @@ int Queue::dequeue()
 	{
 		return 0;
 	}
-
 	else if (front == back)
 	{
 		value = front->data;
@@ -252,7 +260,7 @@ size_t Queue::size()
 //*******************************************************************//
 Stack::Stack()
 {
-	top = 0;
+	top = NULL;
 }
 
 Stack::~Stack()
